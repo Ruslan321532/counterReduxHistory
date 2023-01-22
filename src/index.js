@@ -1,17 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { PureComponent } from "react";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import Counter from "./Components/Counter";
+import History from "./Components/History";
+import reducers from "./reducers";
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center",
+  color: "turquoise",
+  pading: "40px"
+};
+
+class App extends PureComponent {
+  render() {
+    return (
+      <Provider store={createStore(reducers)}>
+        <div style={styles}>
+          <h2>
+            This is a counter on redax
+          </h2>
+          <div>
+            <Counter />
+            <History />
+          </div>
+        </div>
+      </Provider>
+    );
+  }
+}
+
+render(<App />,
+document.getElementById("root"));
